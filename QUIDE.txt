@@ -1,0 +1,10 @@
+ROOT : 
+Add migration : 
+dotnet ef migrations add init 
+	--project Micro.RabbitMQ.Banking.Data 
+	-s Micro.RabbitMQ.Banking.Api
+
+Update database : 
+dotnet ef database update 
+	--project Micro.RabbitMQ.Banking.Data 
+	-s Micro.RabbitMQ.Banking.Api

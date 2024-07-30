@@ -1,0 +1,6 @@
+@Micro.RabbitMQ.Transfer.Api_HostAddress = http://localhost:5244
+
+GET {{Micro.RabbitMQ.Transfer.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

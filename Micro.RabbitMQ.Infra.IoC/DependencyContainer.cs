@@ -15,9 +15,11 @@ namespace Micro.RabbitMQ.Infra.IoC
         public static void RegisterServices( this IServiceCollection services)
         {
 
-            
             //Domain bus
             services.AddScoped<IEventBus, RabbitMQBus>();
+
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Micro.RabbitMQ.Banking.Domain.Commands.TransferCommand).Assembly));
+
 
             //application service
             services.AddScoped<IAccountService, AccountService>();

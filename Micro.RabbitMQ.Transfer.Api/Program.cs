@@ -13,6 +13,7 @@ using Micro.RabbitMQ.Transfer.Application.Interfaces;
 using Micro.RabbitMQ.Transfer.Application.Services;
 using Micro.RabbitMQ.Transfer.Domain.Events;
 using Micro.RabbitMQ.Transfer.Domain.EventHandlers;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +40,11 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(
 builder.Services.AddScoped<ITransferLogRepository, TransgerLogRepository>();
 builder.Services.AddScoped<ITransferService, TransferService>();
 builder.Services.AddScoped<IEventHandler<TransferCreatedEvent>, TransferEventHandler>();
-builder.Services.AddScoped<IEventBus, RabbitMQBus>();
+builder.Services.AddSingleton<IEventBus, RabbitMQBus>(sp =>
+{
+    var scope = sp.GetRequiredService<IServiceScopeFactory>();
+    return new RabbitMQBus(sp.GetService<IMediator>(), scope);
+});
 
 
 

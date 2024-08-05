@@ -136,9 +136,13 @@ namespace Micro.RabbitMQ.Infra.Bus
                 var handler = Activator.CreateInstance(subscription);
                 if (handler is null) continue;
 
+
                 var eventType = _eventTypes.SingleOrDefault(t => t.Name == eventName);
 
-                var @event = JsonSerializer.Serialize(message, eventType);
+                var @event = Newtonsoft.Json.JsonConvert.DeserializeObject(message, eventType);
+
+
+                //var @event = JsonSerializer.Serialize(message, eventType);
 
                 var concreteType = typeof(IEventHandler<>).MakeGenericType(eventType);
 

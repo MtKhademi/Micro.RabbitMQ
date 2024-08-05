@@ -27,7 +27,6 @@ namespace Micro.RabbitMQ.Infra.IoC
             //domain data
             services.AddScoped<IAccountRepository, AccountRepository>();
 
-            //services.AddTransient<BankingContext>();
         }
     }
 }
